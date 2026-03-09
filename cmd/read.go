@@ -41,7 +41,7 @@ func printNote(note store.Note) {
 		return
 	}
 
-	_, err = fmt.Fprintf(w, "%s\t%s\n", note.Title, note.Body)
+	_, err = fmt.Fprintf(w, "%s\t%s\n", note.Title, note.Description)
 	if err != nil {
 		return
 	}

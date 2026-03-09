@@ -23,7 +23,7 @@ var addCmd = &cobra.Command{
 
 func init() {
 	addCmd.Flags().StringVarP(&title, "title", "t", "", "Title of the note (required)")
-	addCmd.Flags().StringVarP(&description, "description", "d", "", "Body of the note (required)")
+	addCmd.Flags().StringVarP(&description, "description", "d", "", "Description of the note (required)")
 	addCmd.Flags().BoolVarP(&isGlobal, "global", "g", false, "Save note globally")
 
 	_ = addCmd.MarkFlagRequired("title")

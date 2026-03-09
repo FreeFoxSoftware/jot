@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-func Save(title, body string, global bool) (int, error) {
+func Save(title, description string, global bool) (int, error) {
 	s, err := loadAll()
 	if err != nil {
 		return 0, err
@@ -17,10 +17,10 @@ func Save(title, body string, global bool) (int, error) {
 
 	s.NextID++
 	note := Note{
-		ID:        s.NextID,
-		Title:     title,
-		Body:      body,
-		CreatedAt: time.Now(),
+		ID:          s.NextID,
+		Title:       title,
+		Description: description,
+		CreatedAt:   time.Now(),
 	}
 
 	s.Notes[key] = append(s.Notes[key], note)
