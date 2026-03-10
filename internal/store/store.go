@@ -65,3 +65,11 @@ func storePath() string {
 	home, _ := os.UserHomeDir()
 	return filepath.Join(home, ".jot", "notes.json")
 }
+
+func allNotes(s Store) []Note {
+	var all []Note
+	for _, notes := range s.Notes {
+		all = append(all, notes...)
+	}
+	return all
+}

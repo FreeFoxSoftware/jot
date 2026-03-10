@@ -2,10 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"jot/internal/presentation"
 	"jot/internal/store"
-	"os"
 	"strconv"
-	"text/tabwriter"
 
 	"github.com/spf13/cobra"
 )
@@ -13,8 +12,18 @@ import (
 var readCmd = &cobra.Command{
 	Use:   "read [id]",
 	Short: "Read a note by ID",
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.RangeArgs(0, 1),
 	RunE: func(cmd *cobra.Command, args []string) error {
+
+		if all {
+			notes, err := store.List(false, true)
+			if err != nil {
+				return err
+			}
+
+			presentation.PrintContents(notes...)
+			return nil
+		}
 		id, err := strconv.Atoi(args[0])
 		if err != nil {
 			return fmt.Errorf("invalid ID %q — must be a number", args[0])
@@ -25,29 +34,11 @@ var readCmd = &cobra.Command{
 			return err
 		}
 
-		printNote(note)
+		presentation.PrintContents(note)
 		return nil
 	},
 }
 
-func printNote(note store.Note) {
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-	_, err := fmt.Fprintln(w, "TITLE\tDESCRIPTION")
-	if err != nil {
-		return
-	}
-	_, err = fmt.Fprintln(w, "-----\t-------")
-	if err != nil {
-		return
-	}
-
-	_, err = fmt.Fprintf(w, "%s\t%s\n", note.Title, note.Description)
-	if err != nil {
-		return
-	}
-
-	err = w.Flush()
-	if err != nil {
-		return
-	}
+func init() {
+	readCmd.Flags().BoolVarP(&all, "all", "a", false, "List all notes")
 }

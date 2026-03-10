@@ -19,9 +19,11 @@ var removeCmd = &cobra.Command{
 		}
 
 		err = store.Delete(id)
+
 		if err != nil {
 			return err
 		}
+		fmt.Println(fmt.Sprintf("Deleted note ID %d", id))
 
 		return nil
 	},
