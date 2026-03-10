@@ -35,6 +35,6 @@ jot read 1
 ### Delete a note
 
 ```bash
-jot delete 1
+jot rm 1
 ```
 
