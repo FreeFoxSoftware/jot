@@ -25,4 +25,5 @@ func init() {
 	rootCmd.AddCommand(readCmd)
 	rootCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(removeCmd)
+	rootCmd.AddCommand(reindexCmd)
 }
